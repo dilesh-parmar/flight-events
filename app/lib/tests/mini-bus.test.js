@@ -1,4 +1,4 @@
-// Node >=18: built-in test runner + assert
+
 const test = require('node:test');
 const assert = require('node:assert');
 const createBus = require('../mini-bus');

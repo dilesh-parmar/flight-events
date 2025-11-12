@@ -49,7 +49,7 @@ test('ingest: requires data.flightId', () => {
   assert.ok(invalid[0].errors.includes('data.flightId required'));
 });
 
-test('ingest: normalizes valid payload and defaults fields', () => {
+test('ingest: normalises valid payload and defaults fields', () => {
   const { bus, invalid, validated } = setup();
 
   bus.emit('validate:ingest', {

@@ -19,10 +19,7 @@ This repo is less about “a production‑ready flight system” and more about 
 
 If you’re reading this as part of reviewing my work: this is how I approach new technology. I like to pick something concrete, break it into pieces, wire them together, and keep iterating until it not only runs, but also makes sense.
 
----
-
 If you’d like to know more about any part (design decisions, trade‑offs, or what I’d do next with more time), I’m happy to walk through it.
----
 ## Why this project exists
 
 I wanted a project that:

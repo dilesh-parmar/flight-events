@@ -2,7 +2,7 @@ const test = require('node:test');
 const assert = require('node:assert');
 
 const { mockClient } = require('aws-sdk-client-mock');
-const { DynamoDBDocumentClient, GetCommand } = require('@aws-sdk/lib-dynamodb');
+const { DynamoDBDocumentClient, GetCommand, ScanCommand } = require('@aws-sdk/lib-dynamodb');
 
 const OLD_TABLE = process.env.TABLE_NAME;
 process.env.TABLE_NAME = 'test-flights';
@@ -90,6 +90,68 @@ test('returns 200 and the flight item when found', async () => {
   const input = ddbMock.calls()[0].args[0].input;
   assert.strictEqual(input.TableName, 'test-flights');
   assert.deepStrictEqual(input.Key, { flightId: 'CD456' });
+});
+
+test('returns 200 with all flights when no id parameter is provided', async () => {
+  const ddbMock = mockClient(DynamoDBDocumentClient);
+  ddbMock.reset().on(ScanCommand).resolves({
+    Items: [
+      { flightId: 'AB123', destination: 'LHR', status: 'boarding', gate: 'A5' },
+      { flightId: 'CD456', destination: 'JFK', status: 'delayed', gate: 'B2' },
+    ],
+    Count: 2,
+  });
+
+  const handler = freshHandler();
+
+  const event = {
+    pathParameters: null, // No path parameters means GET /flights
+  };
+
+  const res = await handler(event);
+
+  assert.strictEqual(res.statusCode, 200);
+  const body = JSON.parse(res.body);
+  assert.strictEqual(body.count, 2);
+  assert.strictEqual(body.flights.length, 2);
+  assert.deepStrictEqual(body.flights[0], {
+    flightId: 'AB123',
+    destination: 'LHR',
+    status: 'boarding',
+    gate: 'A5',
+  });
+  assert.deepStrictEqual(body.flights[1], {
+    flightId: 'CD456',
+    destination: 'JFK',
+    status: 'delayed',
+    gate: 'B2',
+  });
+
+  // Check ScanCommand was called
+  assert.strictEqual(ddbMock.calls().length, 1);
+  const input = ddbMock.calls()[0].args[0].input;
+  assert.strictEqual(input.TableName, 'test-flights');
+});
+
+test('returns empty array when no flights exist', async () => {
+  const ddbMock = mockClient(DynamoDBDocumentClient);
+  ddbMock.reset().on(ScanCommand).resolves({
+    Items: [],
+    Count: 0,
+  });
+
+  const handler = freshHandler();
+
+  const event = {
+    pathParameters: null,
+  };
+
+  const res = await handler(event);
+
+  assert.strictEqual(res.statusCode, 200);
+  const body = JSON.parse(res.body);
+  assert.strictEqual(body.count, 0);
+  assert.deepStrictEqual(body.flights, []);
 });
 
 test.after(() => {

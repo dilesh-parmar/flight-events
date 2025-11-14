@@ -2,9 +2,9 @@
 // Validates incoming requests, logs outcomes, and publishes valid events to AWS EventBridge.
 
 const { EventBridgeClient, PutEventsCommand } = require('@aws-sdk/client-eventbridge');
-const makeBus = require('../lib/mini-bus');
-const attachLogger = require('../lib/logger');
-const attachValidation = require('../lib/validation');
+const makeBus = require('./lib/mini-bus');
+const attachLogger = require('./lib/logger');
+const attachValidation = require('./lib/validation');
 
 const eb = new EventBridgeClient({});
 const BUS_NAME = process.env.EVENT_BUS_NAME;

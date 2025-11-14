@@ -1,1 +1,9 @@
-{"name":"ingest","version":"1.0.0","main":"index.js","devDependencies":{"@aws-sdk/client-eventbridge":"^3.928.0","aws-sdk-client-mock":"^4.1.0"}}
+{
+  "name": "ingest",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "@aws-sdk/client-eventbridge": "^3.928.0",
+    "aws-sdk-client-mock": "^4.1.0"
+  }
+}

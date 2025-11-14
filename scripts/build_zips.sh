@@ -17,8 +17,9 @@ base_dir="$(pwd)"
 embed_zip () {
   local src="$1" name="$2"
   rm -rf "$tmpdir" && mkdir -p "$tmpdir"
-  cp -r "app/$src/"* "$tmpdir"/
-  mkdir -p "$tmpdir/../lib"
+  # Copy files but exclude the lib symlink
+  rsync -a --exclude='lib' "app/$src/" "$tmpdir/"
+  # Now copy the actual lib directory
   cp -r app/lib "$tmpdir/"
   (cd "$tmpdir" && zip -qr "${base_dir}/terraform/{zips}/${name}.zip" .)
   echo "Built terraform/{zips}/${name}.zip (with lib/)"

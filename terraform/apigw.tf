@@ -32,6 +32,13 @@ resource "aws_apigatewayv2_route" "get_flight" {
   target    = "integrations/${aws_apigatewayv2_integration.get_flight_lambda.id}"
 }
 
+# GET /flights → get_flight Lambda (list all flights)
+resource "aws_apigatewayv2_route" "list_flights" {
+  api_id    = aws_apigatewayv2_api.http.id
+  route_key = "GET /flights"
+  target    = "integrations/${aws_apigatewayv2_integration.get_flight_lambda.id}"
+}
+
 # Default stage
 resource "aws_apigatewayv2_stage" "prod" {
   api_id      = aws_apigatewayv2_api.http.id

@@ -100,7 +100,7 @@ resource "aws_iam_role_policy" "get_flight_ddb" {
     Statement = [
       {
         Effect   = "Allow"
-        Action   = ["dynamodb:GetItem"]
+        Action   = ["dynamodb:GetItem", "dynamodb:Scan"]
         Resource = aws_dynamodb_table.flights.arn
       }
     ]

@@ -3,4 +3,4 @@ npm-debug.log*
 **/.terraform/
 *.tfstate*
 .terraform.lock.hcl
-infra/zips/*.zip
+terraform/{zips}/*.zip

@@ -1,1 +1,10 @@
-{"name":"persist","version":"1.0.0","main":"index.js","devDependencies":{"aws-sdk":"^2.1692.0","aws-sdk-mock":"^6.2.1"}}
+{
+  "name": "persist",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "@aws-sdk/client-dynamodb": "^3.931.0",
+    "@aws-sdk/lib-dynamodb": "^3.931.0",
+    "aws-sdk-client-mock": "^4.1.0"
+  }
+}

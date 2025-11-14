@@ -3,8 +3,8 @@
 
 const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
 const { DynamoDBDocumentClient, GetCommand } = require('@aws-sdk/lib-dynamodb');
-const makeBus = require('../lib/mini-bus');
-const attachValidation = require('../lib/validation');
+const makeBus = require('./lib/mini-bus');
+const attachValidation = require('./lib/validation');
 
 // v3 DocumentClient wrapper
 const ddb = DynamoDBDocumentClient.from(new DynamoDBClient({}));

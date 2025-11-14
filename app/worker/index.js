@@ -1,8 +1,8 @@
 // Worker Lambda that processes messages from an event source (e.g. SQS)
 // using a MiniBus event bus and a structured logger.
 
-const makeBus = require('../lib/mini-bus');
-const attachLogger = require('../lib/logger');
+const makeBus = require('./lib/mini-bus');
+const attachLogger = require('./lib/logger');
 
 exports.handler = async (event) => {
   // Create an in-memory event bus and attach a logger to it

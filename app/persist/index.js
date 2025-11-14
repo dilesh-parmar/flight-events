@@ -1,7 +1,7 @@
 const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
 const { DynamoDBDocumentClient, PutCommand } = require('@aws-sdk/lib-dynamodb');
-const makeBus = require('../lib/mini-bus');
-const attachLogger = require('../lib/logger');
+const makeBus = require('./lib/mini-bus');
+const attachLogger = require('./lib/logger');
 
 const ddb = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 const TABLE = process.env.TABLE_NAME;
